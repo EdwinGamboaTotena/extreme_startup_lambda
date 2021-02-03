@@ -2,6 +2,8 @@ package com.serverless;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ResponderModelTest {
@@ -28,6 +30,16 @@ public class ResponderModelTest {
         String pregunta = "2c3ba230: which of the following numbers is the largest: 648, 469, 85, 40";
         String respuesta = responder.answer(pregunta);
         assertThat(respuesta).isEqualTo("648");
+    }
+
+    @Test
+    public void sacarListaDeNumeros() {
+        ResponderModel responder = new ResponderModel();
+        String pregunta = ": 648, 469, 85, 40";
+        List<Integer> respuesta = responder.listNumeros(pregunta);
+        assertThat(respuesta.size()).isEqualTo(4);
+        assertThat(respuesta.get(0)).isEqualTo(648);
+        assertThat(respuesta.get(3)).isEqualTo(40);
     }
 
 }

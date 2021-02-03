@@ -21,19 +21,24 @@ public class ResponderModel {
 
         Matcher largestMatcher = Pattern.compile(".*which of the following numbers is the largest:.*").matcher(question);
         if (largestMatcher.matches()) {
-            String[] digitosPregunta = question.split(".*:");
-            Matcher digitos = Pattern.compile("(\\d+)").matcher(digitosPregunta[1]);
-            Integer mayor = 0;
-            while (digitos.find()) {
-                int iter = Integer.parseInt(digitos.group());
-                if (mayor < Integer.parseInt(digitos.group())) {
-                    mayor = iter;
-                }
-            }
-            return mayor.toString();
+            List<Integer> listNumeros = listNumeros(question);
+            return listNumeros.stream().max(Integer::compareTo).get().toString();
         }
 
         return teamName;
+    }
+
+    public List<Integer> listNumeros(String question) {
+        List<Integer> listNumeros = new ArrayList<>();
+
+        String[] digitosPregunta = question.split(".*:");
+        Matcher digitos = Pattern.compile("(\\d+)").matcher(digitosPregunta[1]);
+
+        while (digitos.find()) {
+            Integer iter = Integer.parseInt(digitos.group());
+            listNumeros.add(iter);
+        }
+        return listNumeros;
     }
 
 }
