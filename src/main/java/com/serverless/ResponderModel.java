@@ -19,14 +19,18 @@ public class ResponderModel {
             return String.valueOf(Integer.parseInt(sumMatcher.group(1)) + Integer.parseInt(sumMatcher.group(2)));
         }
 
-        Matcher largestMatcher = Pattern.compile(".*which of the following numbers is the largest: (\\d+), (\\d+), (\\d+), (\\d+)").matcher(question);
+        Matcher largestMatcher = Pattern.compile(".*which of the following numbers is the largest:.*").matcher(question);
         if (largestMatcher.matches()) {
-            List<Integer> numsList = new ArrayList<>();
-            numsList.add(Integer.parseInt(largestMatcher.group(1)));
-            numsList.add(Integer.parseInt(largestMatcher.group(2)));
-            numsList.add(Integer.parseInt(largestMatcher.group(3)));
-            numsList.add(Integer.parseInt(largestMatcher.group(4)));
-            return String.valueOf(numsList.stream().max(Integer::compareTo).get());
+            String[] digitosPregunta = question.split(".*:");
+            Matcher digitos = Pattern.compile("(\\d+)").matcher(digitosPregunta[1]);
+            Integer mayor = 0;
+            while (digitos.find()) {
+                int iter = Integer.parseInt(digitos.group());
+                if (mayor < Integer.parseInt(digitos.group())) {
+                    mayor = iter;
+                }
+            }
+            return mayor.toString();
         }
 
         return teamName;
