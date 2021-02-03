@@ -25,6 +25,11 @@ public class ResponderModel {
             return listNumeros.stream().max(Integer::compareTo).get().toString();
         }
 
+        Matcher minusMatcher = Pattern.compile(".*what is (\\d+) minus (\\d+)").matcher(question);
+        if (minusMatcher.matches()) {
+            return String.valueOf(Integer.parseInt(minusMatcher.group(1)) - Integer.parseInt(minusMatcher.group(2)));
+        }
+
         return teamName;
     }
 

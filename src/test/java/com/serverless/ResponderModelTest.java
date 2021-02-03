@@ -42,4 +42,12 @@ public class ResponderModelTest {
         assertThat(respuesta.get(3)).isEqualTo(40);
     }
 
+    @Test
+    public void cuandoPreguntaPorLaResta(){
+        ResponderModel responder = new ResponderModel();
+        String pregunta = "d4f58f60: what is 8 minus 5";
+        String respuesta = responder.answer(pregunta);
+        assertThat(respuesta).isEqualTo("3");
+    }
+
 }
