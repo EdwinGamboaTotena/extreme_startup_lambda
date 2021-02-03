@@ -7,7 +7,8 @@ public class ResponderModel {
     private final String teamName = "halcones";
 
     public String answer(String question) {
-        if ("".equals(question)){
+        Matcher nameMatcher = Pattern.compile("_*what is your name").matcher(question);
+        if (nameMatcher.matches()) {
             return teamName;
         }
 
@@ -15,7 +16,7 @@ public class ResponderModel {
         if (sumMatcher.matches()) {
             return String.valueOf(Integer.parseInt(sumMatcher.group(1)) + Integer.parseInt(sumMatcher.group(2)));
         }
-        
+
         return teamName;
     }
 
